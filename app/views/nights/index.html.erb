@@ -1,1 +1,11 @@
-askhdf;lkas
+<% %w(friday saturday).each do |night| %>
+
+
+  <%= form_for Night.new do |f| %>
+    <%= f.hidden_field :night, value: night %>
+    <%= f.submit night.capitalize %>
+  <% end %>
+
+
+<% end %>
+

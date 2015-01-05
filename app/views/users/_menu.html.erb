@@ -1,0 +1,8 @@
+<% if session[:user].present? %>
+  Welcome <%= session[:user] %>
+<% else %>
+  <%= form_for User.new do |f| %>
+    <%= f.text_field :name %>
+    <%= f.submit 'Sign Up' %>
+  <% end %>
+<% end %>
