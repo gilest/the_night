@@ -6,7 +6,6 @@ class NightsController < ApplicationController
   end
 
   def create
-    (night_params)   
     @night = Night.create(night_params)
     redirect_to index_path
   end
@@ -14,7 +13,7 @@ class NightsController < ApplicationController
   private
 
   def night_params
-    params.require(:night).permit(:night)    
+    params.require(:night).permit(:night)
   end
 
 end
