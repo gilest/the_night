@@ -12,7 +12,13 @@ class NightsController < ApplicationController
     @night = Night.new(night_params)
     @night.user = current_user
     @night.save
-    redirect_to index_path
+    redirect_to nights_path
+  end
+
+  def destroy
+    @night = Night.find(params[:id])
+    @night.delete
+    redirect_to nights_path
   end
 
   private
