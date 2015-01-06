@@ -1,8 +1,18 @@
 <% %w(friday saturday).each do |night| %>
 
+  <% night_date = @weekend.send(night.to_sym) %>
+
+  <h2><%= night_date.strftime("%A %-d %B") %></h2>
+
   <%= form_for Night.new do |f| %>
-    <%= f.hidden_field :night, value: night %>
-    <%= f.submit night.capitalize %>
+    <%= f.hidden_field :night, value: night_date %>
+    <%= f.submit 'This is my night!' %>
   <% end %>
+
+  <ul>
+    <% @nights.fetch(night.to_sym).each do |chosen_night| %>
+        <li><%= chosen_night.user.name %> is partying tonight!</li>
+    <% end %>
+  </ul>
 
 <% end %>

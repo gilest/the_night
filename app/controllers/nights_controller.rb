@@ -1,12 +1,17 @@
 class NightsController < ApplicationController
 
   def index
-    # @fridays = Night.where(night: "friday")
-    # @saturdays = Night.where(night: "saturday")
+    @weekend = Weekend.new(Date.today)
+    @nights = {
+      friday: Night.where(night: @weekend.friday),
+      saturday: Night.where(night: @weekend.saturday)
+    }
   end
 
   def create
-    @night = Night.create(night_params)
+    @night = Night.new(night_params)
+    @night.user = current_user
+    @night.save
     redirect_to index_path
   end
 
@@ -17,4 +22,3 @@ class NightsController < ApplicationController
   end
 
 end
-
