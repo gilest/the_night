@@ -1,8 +1,22 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  provider         :string(255)
+#  uid              :string(255)
+#  oauth_token      :string(255)
+#  oauth_expires_at :datetime
+#
+
 class User < ActiveRecord::Base
   has_many :nights
 
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+    where(auth.slice(:provider, :uid).permit!).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.name
