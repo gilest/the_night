@@ -1,11 +1,31 @@
-<% %w(friday saturday).each do |night| %>
+<% %w(friday saturday).each do |night_name| %>
 
+  <% night_date = @weekend.send(night_name.to_sym) %>
+  <% night = current_user.night_for(night_date) %>
 
-  <%= form_for Night.new do |f| %>
-    <%= f.hidden_field :night, value: night %>
-    <%= f.submit night.capitalize %>
+  <h2><%= night_date.strftime("%A %-d %B") %></h2>
+
+  <% if night.present? %>
+
+    <p>Party on, <%= current_user.name %>. See you at the club!</p>
+
+    <%= form_for night, method: :delete do |f| %>
+      <%= f.submit "I'm not partying..!" %>
+    <% end %>
+
+  <% else %>
+
+    <%= form_for Night.new do |f| %>
+      <%= f.hidden_field :night, value: night_date %>
+      <%= f.submit 'This is my night!' %>
+    <% end %>
+
   <% end %>
 
+  <ul>
+    <% @nights.fetch(night_name.to_sym).each do |chosen_night| %>
+        <li><%= chosen_night.user.name %> is partying tonight!</li>
+    <% end %>
+  </ul>
 
 <% end %>
-
