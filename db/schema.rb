@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150104095926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "nights", force: true do |t|
     t.integer  "user_id"

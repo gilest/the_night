@@ -1,31 +1,35 @@
-<% %w(friday saturday).each do |night_name| %>
+<% if signed_in? %>
 
-  <% night_date = @weekend.send(night_name.to_sym) %>
-  <% night = current_user.night_for(night_date) %>
+  <% %w(friday saturday).each do |night_name| %>
 
-  <h2><%= night_date.strftime("%A %-d %B") %></h2>
+    <% night_date = @weekend.send(night_name.to_sym) %>
+    <% night = current_user.night_for(night_date) %>
 
-  <% if night.present? %>
+    <h2><%= night_date.strftime("%A %-d %B") %></h2>
 
-    <p>Party on, <%= current_user.name %>. See you at the club!</p>
+    <% if night.present? %>
 
-    <%= form_for night, method: :delete do |f| %>
-      <%= f.submit "I'm not partying..!" %>
+      <p>Party on, <%= current_user.name %>. See you at the club!</p>
+
+      <%= form_for night, method: :delete do |f| %>
+        <%= f.submit "I'm not partying..!" %>
+      <% end %>
+
+    <% else %>
+
+      <%= form_for Night.new do |f| %>
+        <%= f.hidden_field :night, value: night_date %>
+        <%= f.submit 'This is my night!' %>
+      <% end %>
+
     <% end %>
 
-  <% else %>
-
-    <%= form_for Night.new do |f| %>
-      <%= f.hidden_field :night, value: night_date %>
-      <%= f.submit 'This is my night!' %>
-    <% end %>
+    <ul>
+      <% @nights.fetch(night_name.to_sym).each do |chosen_night| %>
+          <li><%= chosen_night.user.name %> is partying tonight!</li>
+      <% end %>
+    </ul>
 
   <% end %>
-
-  <ul>
-    <% @nights.fetch(night_name.to_sym).each do |chosen_night| %>
-        <li><%= chosen_night.user.name %> is partying tonight!</li>
-    <% end %>
-  </ul>
 
 <% end %>

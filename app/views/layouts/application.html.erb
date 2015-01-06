@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TheNight</title>
+  <title>The Night</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
@@ -9,11 +9,9 @@
 <body>
 <h1>The Night</h1>
 
-<%= render 'users/menu' %>
-  
-  <% if current_user %>
-    <%= yield %>
-  <% end %>
+  <%= render 'users/menu' %>
+
+  <%= yield %>
 
 </body>
 </html>
