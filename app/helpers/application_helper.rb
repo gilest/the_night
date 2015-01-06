@@ -1,11 +1,5 @@
 module ApplicationHelper
-
-  def signed_in?
-    session[:user].present?
-  end
-
   def current_user
-    User.find_by(name: session[:user])
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
-
 end

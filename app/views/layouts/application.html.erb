@@ -10,8 +10,10 @@
 <h1>The Night</h1>
 
 <%= render 'users/menu' %>
-
-<%= yield %>
+  
+  <% if current_user %>
+    <%= yield %>
+  <% end %>
 
 </body>
 </html>
