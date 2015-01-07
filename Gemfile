@@ -20,6 +20,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
 
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer',  platforms: :ruby
+
 group :development do
   gem 'spring'
   gem 'annotate'
