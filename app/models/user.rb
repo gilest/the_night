@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :nights
 
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid).permit!).first_or_initialize.tap do |user|
+    User.where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.name
