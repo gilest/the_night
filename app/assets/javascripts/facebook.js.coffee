@@ -1,5 +1,6 @@
 jQuery ->
   $('body').prepend('<div id="fb-root"></div>')
+  window.env = $('body').data('env')
 
   $.ajax
     url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
@@ -8,7 +9,11 @@ jQuery ->
 
 
 window.fbAsyncInit = ->
-  FB.init(appId: '1532898173648258', cookie: true)
+  appId = if env == 'production'
+    '1532898173648258'
+  else
+    '1541839836087425'
+  FB.init(appId: appId, cookie: true)
 
   $('#sign_in').click (e) ->
     e.preventDefault()
