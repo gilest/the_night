@@ -10,29 +10,11 @@
 <body data-env="<%= Rails.env %>">
 
 <div class="header">
-	<img id="logo" src="assets/logo.png"/>
+  <%= image_tag 'logo.png', id: 'logo' %>
 	<h1>The Night</h1>
-<div class="user">
+  <div class="user">
   	<%= render 'users/menu' %>
-</div>
-</div>
-<div class="container">
-	<div class="column" id="left">
-		<h2>Friday</h2>
-		<h3>20th February</h3>
-		<div class="wrapper"><div class="button">This is my night</div></div>
-		<div class="wrapper">
-			<div class="friend"><div class="profile-pic"></div><div class="friend-name"><p>Giles</br>Thompson</p></div></div>
-			<div class="friend"><div class="profile-pic"></div><div class="friend-name"><p>Giles</br>Thompson</p></div></div>
-			<div class="friend"><div class="profile-pic"></div><div class="friend-name"><p>Giles</br>Thompson</p></div></div>
-			<div class="friend"><div class="profile-pic"></div><div class="friend-name"><p>Giles</br>Thompson</p></div></div>
-		</div>
-	</div>
-	<div class="column">
-		<h2>Saturday</h2>
-		<h3>21st February</h3>
-		<div class="button">This is my night</div>
-	</div>
+  </div>
 </div>
 
   <%= yield %>
