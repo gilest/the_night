@@ -3,13 +3,19 @@
 <head>
   <title>The Night</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag    'application', 'http://fonts.googleapis.com/css?family=Lato:100,400' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<h1>The Night</h1>
+<body data-env="<%= Rails.env %>">
 
-  <%= render 'users/menu' %>
+<div class="header">
+  <%= image_tag 'logo.png', id: 'logo' %>
+	<h1>The Night</h1>
+  <div class="user">
+  	<%= render 'users/menu' %>
+  </div>
+</div>
 
   <%= yield %>
 

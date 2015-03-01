@@ -1,35 +1,40 @@
 <% if signed_in? %>
 
   <% %w(friday saturday).each do |night_name| %>
-
     <% night_date = @weekend.send(night_name.to_sym) %>
     <% night = current_user.night_for(night_date) %>
+    <div class="container">
+      <div class="column <%= night_name %>">
+        <h2><%= night_date.strftime("%A") %></h2>
+        <h3><%= night_date.strftime("%-d %B") %></h3>
+        <div class="wrapper">
+          <% if night.present? %>
 
-    <h2><%= night_date.strftime("%A %-d %B") %></h2>
+            <%= form_for night, method: :delete do |f| %>
+              <%= f.submit "This isn't my night...", class: 'button' %>
+            <% end %>
 
-    <% if night.present? %>
+          <% else %>
 
-      <p>Party on, <%= current_user.name %>. See you at the club!</p>
+            <%= form_for Night.new do |f| %>
+              <%= f.hidden_field :night, value: night_date %>
+              <%= f.submit 'This is my night!', class: 'button' %>
+            <% end %>
 
-      <%= form_for night, method: :delete do |f| %>
-        <%= f.submit "I'm not partying..!" %>
-      <% end %>
-
-    <% else %>
-
-      <%= form_for Night.new do |f| %>
-        <%= f.hidden_field :night, value: night_date %>
-        <%= f.submit 'This is my night!' %>
-      <% end %>
-
-    <% end %>
-
-    <ul>
-      <% @nights.fetch(night_name.to_sym).each do |chosen_night| %>
-          <li><%= chosen_night.user.name %> is partying tonight!</li>
-      <% end %>
-    </ul>
-
+          <% end %>
+        </div>
+        <div class="wrapper">
+          <% @nights.fetch(night_name.to_sym).each do |chosen_night| %>
+          <div class="friend">
+            <%= image_tag "http://graph.facebook.com/#{chosen_night.user.uid}/picture?type=square", class: 'profile-pic' %>
+              <div class="friend-name">
+                <p><%= chosen_night.user.name %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
 
 <% end %>
