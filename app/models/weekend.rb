@@ -2,19 +2,24 @@ class Weekend
 
   def initialize(today)
     @today = today
+    change_to_next_weekend! if @today.sunday?
   end
 
   def friday
-    beginning_of_week + 4.days
+    monday + 4.days
   end
 
   def saturday
-    beginning_of_week + 5.days
+    monday + 5.days
+  end
+
+  def change_to_next_weekend!
+    @today = @today.next_week
   end
 
   private
 
-  def beginning_of_week
+  def monday
     @today.beginning_of_week
   end
 
